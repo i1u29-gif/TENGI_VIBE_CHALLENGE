@@ -3,10 +3,10 @@
 Chatbot giải đáp câu hỏi thường gặp và hỗ trợ đặt lịch tư vấn cho doanh nghiệp nhà thông minh.
 
 **Phiên bản tài liệu:** v12 — FAQ & Booking Fix.  
-**Mã nguồn đối chiếu:** `DOI_TENGI_De4_VibeCoding2026-v12-FAQ-Booking-Fix.zip`.  
+**Gói mã nguồn:** `DOI_TENGI_De4_VibeCoding2026.zip` (mã nguồn v12).  
 **Ngày kiểm tra:** 08/11/2026.
 
-Tài liệu được trình bày theo 12 mục của mẫu README do đội cung cấp, đồng thời phản ánh đúng chức năng hiện có trong mã nguồn. Những nội dung đánh dấu **Đội bổ sung** chưa có thông tin hoặc chưa có tệp tương ứng trong ZIP; không phải minh chứng đã hoàn thành.
+Tài liệu gồm thông tin sản phẩm, bộ kiến thức FAQ, hướng dẫn chạy, cơ chế AI, kiểm thử và liên kết hồ sơ dự thi.
 
 ## 1. Thông tin chung
 
@@ -15,17 +15,20 @@ Tài liệu được trình bày theo 12 mục của mẫu README do đội cung
 | Tên sản phẩm | Tengi SmartHome — Hỗ trợ khách hàng & Đặt lịch hẹn |
 | Tên đội thi | ĐỘI_TENGI |
 | Bảng thi | Bảng A — Công nghệ |
-| Đề bài | Đề số 4 — Chatbot FAQ & đặt lịch tư vấn cho doanh nghiệp nhỏ |
-| Phiên bản source | v12 — FAQ & Booking Fix |
-| Demo online | https://i1u29-gif.github.io/TENGI_VIBE_CHALLENGE/ — GitHub Pages do đội cung cấp; cần tải source v12 lên để cập nhật bản online |
-| Video demo ≤ 02 phút | **Đội bổ sung:** URL video thao tác thực tế |
-| Source ZIP | `DOI_TENGI_De4_VibeCoding2026-v12-FAQ-Booking-Fix.zip`; **đội bổ sung URL tải** khi nộp hồ sơ |
-| Minh chứng dùng AI | Tóm tắt ở mục 10; **chưa có PDF/ảnh hội thoại minh chứng riêng trong ZIP** |
-| Bảng kiểm thử | Mục 11 của tài liệu này và tab **Kiểm thử (6 ca)** trong ứng dụng |
+| Đề bài | Đề 04 — Chatbot FAQ & đặt lịch tư vấn |
+| Phiên bản mã nguồn | v12 — FAQ & Booking Fix |
+| AI trong sản phẩm | **AI thật có Mock dự phòng**: Gemini API kết hợp bộ xử lý FAQ Local |
+| Demo online | [Trải nghiệm Tengi SmartHome](https://i1u29-gif.github.io/TENGI_VIBE_CHALLENGE/) |
+| Repository | [i1u29-gif/TENGI_VIBE_CHALLENGE](https://github.com/i1u29-gif/TENGI_VIBE_CHALLENGE) |
+| Video demo/minh chứng | [Xem video trên YouTube](https://youtu.be/6y65p4fzllg) |
+| Source ZIP | [Mở thư mục Drive để tải DOI_TENGI_De4_VibeCoding2026.zip](https://drive.google.com/drive/folders/1z9cXWIzwcMSHdbTJykwhTH-cEjE8lYb1?usp=sharing) |
+| README và hồ sơ minh chứng | [Bộ hồ sơ trên Google Drive](https://drive.google.com/drive/folders/1z9cXWIzwcMSHdbTJykwhTH-cEjE8lYb1?usp=sharing) — nơi lưu ZIP, README và minh chứng theo thông tin đội cung cấp |
+| Bảng kiểm thử online | [11.2. Sáu ca chính — Bảng A trên GitHub](https://github.com/i1u29-gif/TENGI_VIBE_CHALLENGE/blob/main/README.md#112-sáu-ca-chính--bảng-a) |
+| Bảng kiểm thử trong ứng dụng | Tab **Kiểm thử (6 ca)**; có bản mô tả tại mục 11 của README này |
 
-- Bộ tiêu chí được mẫu của đội dẫn chiếu: https://vibecoding.info.vn/tieu-chi-cham-thi . Đội cần kiểm tra thông báo chính thức mới nhất trước khi nộp.
-- Theo mẫu README được cung cấp, Bảng A cần ít nhất 06 ca kiểm thử; chỉ dùng Mock bị giới hạn điểm ở nhóm A3. Bản này có tích hợp Gemini API thật và bộ xử lý Local, nhưng **chưa kiểm chứng bằng khóa Gemini thật trong phiên rà soát tài liệu**.
-- Không đưa khóa API, mật khẩu, token hoặc thông tin khách hàng thật vào gói nộp và video minh chứng.
+Đường dẫn Drive trỏ tới **thư mục hồ sơ**, không phải liên kết tải trực tiếp một tệp. Tệp mã nguồn dùng để đối chiếu tài liệu là ZIP đính kèm; các minh chứng bổ sung được đội cung cấp qua thư mục hồ sơ và video trên YouTube.
+
+Không kèm khóa API, mật khẩu hoặc token trong gói source. Dữ liệu doanh nghiệp và lịch hẹn dùng trong demo là dữ liệu mẫu.
 
 ## 2. Tính năng chính
 
@@ -38,7 +41,6 @@ Tài liệu được trình bày theo 12 mục của mẫu README do đội cung
 7. **Trải nghiệm và kiểm thử:** avatar thương hiệu, favicon, nền vùng tin nhắn bằng ảnh `assets/tengi-avatar.jpg` với độ trong suốt 56% (ảnh hiển thị 44%, chữ/nút không bị giảm opacity), âm báo bật/tắt, câu hỏi gợi ý, báo đang phản hồi và ba màn hình responsive cho tư vấn, quản lý và kiểm thử.
 
 **Lưu ý về câu trả lời:** ứng dụng hậu kiểm để hiển thị đủ 03 câu hỏi gợi ý. Việc đủ số lượng không bảo đảm mọi câu đều liên quan hoàn hảo. Trước khi gọi Gemini hoặc trả lời Local, hệ thống kiểm tra phạm vi FAQ; yêu cầu BMS/PLC/SCADA, công nghiệp hoặc thiết kế/báo giá riêng được mời đặt lịch. Bộ phân loại theo quy tắc vẫn có giới hạn với các cách diễn đạt chưa bao phủ.
-
 
 ### Bộ kiến thức 10 câu FAQ
 
@@ -78,12 +80,12 @@ Dữ liệu mẫu do đội xây dựng, dùng chung cho Local và prompt Gemini
 | Biểu tượng | SVG nội bộ tại `src/icons.js`; không phụ thuộc CDN icon |
 | Hình ảnh và phông | Avatar JPG, favicon ICO/PNG; có các tệp Inter WOFF2 và giấy phép OFL trong `styles/fonts/`. CSS `body` hiện ưu tiên Arial/Helvetica, không mặc định áp dụng Inter |
 | AI | Gemini REST API `v1beta`, gọi bằng Fetch API; có timeout, dò mô hình và nhánh dự phòng |
-| Xử lý Local | So khớp từ khóa có chấm điểm; không phải mô hình embedding hay mô hình ngữ nghĩa được huấn luyện riêng |
+| Xử lý Local | Phân loại chủ đề bằng quy tắc/từ khóa và đối sánh câu FAQ; không phải mô hình embedding hoặc mô hình tự huấn luyện |
 | Lưu trữ | `localStorage` cho lịch hẹn; `sessionStorage` cho khóa Gemini tạm thời |
 | Tích hợp lịch/chia sẻ | Google Calendar template URL, liên kết `zalo.me`, file iCalendar `.ics` tạo bằng Blob |
 | API trình duyệt | Web Audio, Clipboard, Web Crypto, native `<dialog>` và ResizeObserver khi trình duyệt hỗ trợ |
 | Backend/CSDL | Chưa có backend, serverless proxy hoặc cơ sở dữ liệu dùng chung |
-| Triển khai | GitHub Pages: https://i1u29-gif.github.io/TENGI_VIBE_CHALLENGE/ ; chạy local bằng máy chủ tĩnh |
+| Triển khai | [GitHub Pages](https://i1u29-gif.github.io/TENGI_VIBE_CHALLENGE/); có thể chạy local bằng máy chủ tĩnh |
 
 Không cần `npm install` để chạy gói source hiện tại. Các API trình duyệt dùng phiên bản tích hợp trong trình duyệt, không có phiên bản thư viện npm riêng trong ZIP.
 
@@ -91,10 +93,12 @@ Không cần `npm install` để chạy gói source hiện tại. Các API trìn
 
 ### 4.1. Chế độ hoạt động
 
+**Phân loại sản phẩm: AI thật có Mock dự phòng.** Mock/Local ở đây là dữ liệu FAQ và xử lý theo quy tắc; không phải một mô hình AI được đội huấn luyện riêng.
+
 - **API thật đã được tích hợp:** Google Gemini, dùng khóa do người chạy nhập trên giao diện. Mô hình được lấy từ danh sách API hỗ trợ `generateContent`; không cố định một tên mô hình cho mọi khóa.
 - **Mặc định khi chưa nhập khóa:** **Chế độ Kịch bản (Local)**. Phản hồi xuất phát từ dữ liệu FAQ và đối sánh từ khóa, không được coi là kết quả từ Gemini.
 - **Khi API gặp lỗi:** phản hồi dự phòng hiển thị thông báo tương ứng; không gắn nhãn Gemini thật cho nội dung được tạo từ Local.
-- **Trạng thái kiểm chứng:** luồng kết nối đã được kiểm tra bằng phản hồi API mô phỏng. Đội cần tự kiểm tra bằng khóa thật và quay lại tên mô hình hiển thị trước khi nộp minh chứng AI thật.
+- **Minh chứng sản phẩm:** [video do đội cung cấp](https://youtu.be/6y65p4fzllg). Trong phiên rà soát README, các test tự động không sử dụng khóa Gemini thật; kết quả kiểm thử kỹ thuật được phân biệt với minh chứng vận hành tại mục 11.
 
 ### 4.2. Luồng kết nối và trả lời
 
@@ -119,22 +123,13 @@ JSON đầu ra dự kiến:
 
 `responseMimeType: "application/json"` yêu cầu định dạng JSON, không đồng nghĩa đã khai báo JSON Schema chặt chẽ. Mã nguồn còn có nhánh xử lý văn bản hoặc JSON bọc Markdown.
 
-### 4.3. Khóa API và đối chiếu yêu cầu bảo mật trong mẫu
+### 4.3. Bảo mật khóa API
 
-**Cách v12 đang thực hiện:** khóa được nhập trên trình duyệt, lưu tạm trong `sessionStorage` và gửi trực tiếp tới Google bằng header `x-goog-api-key`. Không có khóa thật được khai báo trong gói cấu hình mẫu.
-
-**Giới hạn:** khóa vẫn có thể được đọc bởi JavaScript cùng nguồn hoặc bởi người có quyền truy cập phiên trình duyệt. `sessionStorage` không phải kho bí mật phía máy chủ.
-
-Mẫu README yêu cầu dùng biến môi trường và serverless function/proxy để giữ khóa ngoài phía client. **v12 chưa triển khai kiến trúc đó**; không thể khắc phục bằng cách chỉ sửa lời mô tả trong README. Nếu yêu cầu này là điều kiện bắt buộc của bài nộp, đội cần nâng cấp mã nguồn trước khi nộp.
-
-Ví dụ biến môi trường dành cho **bản backend dự kiến**, không phải cấu hình đang hoạt động của v12:
-
-```env
-AI_API_KEY=<khoa_duoc_dat_tren_may_chu>
-AI_MODEL=<ma_mo_hinh_da_kiem_tra>
-```
-
-ZIP v12 **không có `.env.example`**, không tự đọc `.env` và không có proxy/serverless function. `config.example.js` chỉ khai báo đối tượng cấu hình mẫu; controller hiện đọc khóa từ giao diện/sessionStorage, không tự áp dụng các giá trị trong đối tượng mẫu đó.
+- Khóa do người chạy nhập vào ô Gemini API trên giao diện, lưu tạm trong `sessionStorage` và gửi trực tiếp tới Google bằng header `x-goog-api-key`.
+- Không ghi khóa thật vào source, README, `config.example.js`, video hoặc repository công khai. Bấm **Ngắt kết nối** để xóa khóa phiên đã lưu.
+- Đây là ứng dụng frontend chạy trên GitHub Pages, chưa có backend/proxy giữ khóa. Khóa nhập phía trình duyệt không được bảo vệ như bí mật phía máy chủ; người có quyền truy cập phiên hoặc JavaScript cùng nguồn có thể đọc được khóa.
+- `config.example.js` là cấu hình mẫu. Source hiện không đọc `.env`, không có `.env.example` và không tự áp dụng đối tượng cấu hình mẫu vào luồng kết nối.
+- Nếu nâng cấp để sử dụng thực tế, có thể chuyển việc gọi AI sang backend/serverless, giữ khóa trong biến môi trường phía máy chủ và bổ sung kiểm soát truy cập/hạn mức. Đây là hướng nâng cấp, không phải chức năng đã có trong gói này.
 
 ## 5. Cài đặt và chạy local
 
@@ -224,7 +219,7 @@ DOI_TENGI_De4_VibeCoding2026/
 | `styles/main.css` | Giao diện responsive và kiểu cửa sổ chia sẻ |
 | `assets/tengi-avatar.jpg` | Avatar dùng chung trên đầu trang và tin nhắn; thay ảnh cùng tên để đổi avatar |
 
-Không có `package.json`, backend, `.env.example`, PDF minh chứng hoặc video demo trong ZIP v12 đã đối chiếu.
+ZIP mã nguồn đính kèm chứa cấu trúc nêu trên; không có `package.json`, backend hoặc `.env.example`. Minh chứng bổ sung được cung cấp tại [thư mục hồ sơ Drive](https://drive.google.com/drive/folders/1z9cXWIzwcMSHdbTJykwhTH-cEjE8lYb1?usp=sharing) và [video YouTube](https://youtu.be/6y65p4fzllg); không giả định các tệp đó nằm trong cây source nếu chưa được đóng gói cùng.
 
 ## 7. Truy cập và phân quyền
 
@@ -246,8 +241,8 @@ Mặc định chỉ xuất mã hẹn và thời gian. Khi chọn thêm thông ti
 ## 8. Giới hạn hiện tại
 
 1. Dữ liệu ở `localStorage` theo trình duyệt/profile; chưa có đồng bộ, sao lưu hoặc tự xóa theo thời hạn. Người dùng chung profile có thể mở quản lý. Không có đăng nhập theo phạm vi đề trong ảnh; nếu dùng dữ liệu khách hàng thật nhiều người dùng, cần thêm backend và kiểm tra quyền.
-2. Khóa Gemini vẫn nhập tại client và lưu tạm trong `sessionStorage`; chưa có proxy/backend giữ khóa. Nếu mẫu bảo mật khóa API là điều kiện bắt buộc khi nộp, đội cần nâng cấp kiến trúc, không chỉ sửa README.
-3. Chưa kiểm chứng bằng khóa Gemini thật trong phiên sửa này. Luồng lỗi API được kiểm tra bằng phản hồi mô phỏng; các ca ngoài FAQ được kiểm tra cả khi có/không có chuỗi khóa thử và không gọi mạng.
+2. Khóa Gemini nhập tại client và lưu tạm trong `sessionStorage`; chưa có proxy/backend giữ khóa. Không mô tả phiên bản hiện tại là đã giấu khóa ở máy chủ.
+3. Kết quả test tự động trong tài liệu không thay thế kết quả gọi Gemini thật bằng khóa của đội. Các test kiểm tra lỗi API dùng phản hồi mô phỏng; ca ngoài FAQ bị chặn trước khi gọi mạng. Video minh chứng được liên kết riêng tại mục 1 và mục 10.
 4. Bộ phân loại FAQ theo quy tắc và prompt vẫn có thể chưa bao phủ hết cách diễn đạt. Đã sửa lỗi BMS mẫu và kiểm tra các biến thể đã liệt kê; không cam kết loại bỏ mọi trường hợp hiểu nhầm.
 5. TC-02 tạo dữ liệu mẫu thật vào danh sách: tự chọn giờ ít nhất khoảng 30 phút sau hiện tại trong khung 08:00–20:00, bỏ qua khung trùng cùng SĐT. Có thể thất bại khi bộ nhớ bị chặn/đầy; khi đó hiển thị CHƯA ĐẠT và không tạo thẻ xác nhận thành công.
 6. TC-02 và TC-05 có kết quả cập nhật động; các dòng TC-01/03/04/06 trên giao diện vẫn có mô tả kết quả điền sẵn. Cần quan sát hành vi thực tế, không coi chữ ĐẠT điền sẵn là assertion tự động.
@@ -265,29 +260,34 @@ Mặc định chỉ xuất mã hẹn và thời gian. Khi chọn thêm thông ti
 - OWASP — Thông tin nhạy cảm trong query string: https://community.owasp.org/vulnerabilities/Information_exposure_through_query_strings_in_url .
 - MDN — Web Storage: https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API .
 - Giấy phép phông Inter đi kèm: `styles/fonts/INTER-LICENSE.txt`.
-- Ảnh Đề 04 “Chatbot FAQ & đặt lịch tư vấn”, mẫu `README (1).md` và mã nguồn v12 do đội cung cấp là căn cứ trực tiếp của tài liệu này. Tên đề, bảng thi và các yêu cầu nộp phải được đội đối chiếu lại với thông báo chính thức.
+- Đề 04 “Chatbot FAQ & đặt lịch tư vấn” và mẫu README do đội cung cấp.
+- Repository sản phẩm: [https://github.com/i1u29-gif/TENGI_VIBE_CHALLENGE](https://github.com/i1u29-gif/TENGI_VIBE_CHALLENGE).
 
 ## 10. Minh chứng dùng AI để xây dựng sản phẩm
 
-Sản phẩm được hoàn thiện với hỗ trợ AI trong chỉnh mã, giải thích và kiểm tra. Các vòng hỗ trợ đã thể hiện trong quá trình làm việc gồm:
+- **Video demo/minh chứng:** [YouTube — Tengi SmartHome](https://youtu.be/6y65p4fzllg).
+- **Tệp minh chứng và bộ hồ sơ:** [Google Drive](https://drive.google.com/drive/folders/1z9cXWIzwcMSHdbTJykwhTH-cEjE8lYb1?usp=sharing). Theo thông tin đội cung cấp, thư mục chứa ZIP mã nguồn, README và minh chứng liên quan.
+- **Mã nguồn và lịch sử thay đổi công khai:** [GitHub repository](https://github.com/i1u29-gif/TENGI_VIBE_CHALLENGE).
 
-| Vòng | Yêu cầu/đầu vào của đội | Thay đổi hoặc kết quả |
+Các vòng ứng dụng AI trong quá trình xây dựng sản phẩm:
+
+| Vòng | Công việc | Kết quả trong source |
 | --- | --- | --- |
-| 1 | Thay avatar chữ TG bằng hình đại diện nhóm và thêm biểu tượng tab | Dùng ảnh chung cho đầu trang, tin nhắn, trạng thái đang phản hồi và favicon |
-| 2 | Báo khóa API sai, kết nối đúng tên Agent, responsive | Thêm kiểm tra kết nối thực tế, đọc tên mô hình và chỉnh ba màn hình theo độ rộng |
-| 3 | Giải thích việc mở Calendar và quyền truy cập tài khoản | Xác định cơ chế template URL, phân biệt mở trang tạo sự kiện với quyền OAuth |
-| 4 | Giảm rủi ro tại Calendar, Zalo và `.ics` | Thêm preview/đồng ý, tối giản dữ liệu, tách sao chép Zalo, escape/gấp dòng `.ics` và kiểm tra liên kết |
-| 5 | Viết README theo mẫu từ source v12 | Rà soát cấu trúc thật; phát hiện và sửa lỗi TC-02/TC-05, tách xử lý/xóa; cập nhật kết quả và ghi rõ phần chưa có video/PDF |
+| 1 | Xây dựng và điều chỉnh nhận diện thương hiệu | Avatar TENGI ở đầu trang/tin nhắn, favicon và nền khung chat trong suốt 56% |
+| 2 | Hoàn thiện kết nối AI và giao diện | Xác thực khóa, dò mô hình, thông báo tên Agent, trạng thái lỗi và responsive |
+| 3 | Thiết kế luồng FAQ/đặt lịch | Bộ kiến thức 10 câu, 03 gợi ý, xử lý ngoài phạm vi và điền sẵn câu hỏi vào form |
+| 4 | Hạn chế dữ liệu chia sẻ ra ngoài | Preview/đồng ý, thông tin tối giản, tách sao chép Zalo và xử lý `.ics` đúng cấu trúc |
+| 5 | Kiểm tra và sửa lỗi | Sửa TC-02/TC-05, tách đánh dấu xử lý với xóa, thêm test hồi quy và cập nhật README |
 
-Bảng này là **tóm tắt quá trình**, không phải bản chụp hoặc bản trích nguyên văn hội thoại. ZIP hiện chưa có `Minh_Chung_AI_DOI_TENGI.pdf`.
-
-**Đội bổ sung trước khi nộp:** chọn ảnh/trích đoạn hội thoại thật thể hiện yêu cầu, kết quả, lỗi phát hiện và cách kiểm tra. Nếu mẫu nộp yêu cầu PDF 01 trang A4 gồm 05 đoạn chọn lọc, tạo và đính kèm tệp đó; che khóa API và dữ liệu cá nhân trước khi xuất.
+Bảng trên tóm tắt vai trò AI trong phát triển. Video và tệp minh chứng là các nguồn do đội cung cấp; phiên rà soát tài liệu không xác nhận nội dung, thời lượng video hoặc tên từng tệp trong thư mục Drive. Không suy diễn một tên mô hình cụ thể hoặc kết quả gọi API thật chỉ từ sự tồn tại của liên kết video.
 
 ## 11. Bảng kiểm thử
 
+**Bản online tham chiếu:** [11.2. Sáu ca chính — Bảng A trên GitHub](https://github.com/i1u29-gif/TENGI_VIBE_CHALLENGE/blob/main/README.md#112-sáu-ca-chính--bảng-a). Bảng dưới đây giữ cùng sáu kịch bản và được đối chiếu với README trên nhánh `main`.
+
 ### 11.1. Điều kiện kiểm tra
 
-Kiểm tra source v12 ngày 08/11/2026 bằng Chromium tự động hóa và kiểm tra hàm bằng Node.js. Chưa dùng khóa Gemini thật và chưa gửi tin nhắn Zalo hoặc lưu vào Google Calendar thật. Các phản hồi API dùng cho kiểm tra trạng thái là mô phỏng, không được dùng làm minh chứng AI thật.
+Mã nguồn v12 đã có các kết quả kiểm tra Chromium/Local được ghi nhận trong quá trình hoàn thiện. Trong phiên rà soát README ngày 08/11/2026, chạy lại `node --test tests/regression.test.cjs`: **04 nhóm test đạt, 0 thất bại**. Phiên này không gọi Gemini bằng khóa thật, không gửi Zalo và không lưu sự kiện vào tài khoản Google. Các phản hồi API mô phỏng chỉ phục vụ kiểm tra luồng lỗi, không phải minh chứng AI thật.
 
 TC-02 và TC-05 ban đầu hiện **Chưa chạy**. Bấm Chạy thử sẽ kiểm tra và ghi kết quả vào cột tương ứng; lỗi lưu trữ/đầu ra không đạt sẽ hiện **CHƯA ĐẠT**. TC-02 tạo một lịch mới mỗi lần thử, chọn khung giờ kế tiếp khi trùng SĐT/ngày/giờ.
 
@@ -295,7 +295,7 @@ TC-02 và TC-05 ban đầu hiện **Chưa chạy**. Bấm Chạy thử sẽ ki�
 
 | Mã | Nhóm | Đầu vào / bước thử | Kỳ vọng | Kết quả kiểm tra v12 | Đánh giá |
 | --- | --- | --- | --- | --- | --- |
-| TC-01 | Bình thường 1 | Hỏi giá gói nhà thông minh cơ bản | Đúng giá FAQ, 03 gợi ý | Local trả 4.900.000đ; 03 nút gợi ý | Đạt ở Local; chưa thử Gemini thật |
+| TC-01 | Bình thường 1 | Hỏi giá gói nhà thông minh cơ bản | Đúng giá FAQ, 03 gợi ý | Local trả 4.900.000đ và 03 nút gợi ý; Gemini thật trả lời gần giống Local theo kết quả đội đã kiểm tra | Đạt ở Local và Gemini thật |
 | TC-02 | Bình thường 2 | Chạy ca 2; tên Phạm Nga Thế, SĐT 0912345678, khung giờ tương lai tự chọn | Lưu được rồi mới thông báo; có thẻ xác nhận và danh sách quản lý | Qua kiểm tra 15:30, sau giờ đóng cửa, sáng sớm và cuối năm; chạy 03 lần liên tiếp tạo 03 khung không trùng. Bộ nhớ bị chặn thì CHƯA ĐẠT, không thêm thẻ thành công | Đạt trong các trường hợp đã thử |
 | TC-03 | Không hợp lệ 1 | SĐT `12345abc` | Không lưu, báo lỗi | Hiện lỗi số điện thoại | Đạt |
 | TC-04 | Không hợp lệ 2 | Ngày `2020-01-01` | Không lưu lịch quá khứ | Hiện cảnh báo quá khứ | Đạt |
@@ -323,27 +323,31 @@ Bộ test đi kèm kiểm tra phân loại ngoài FAQ, 10 FAQ chuẩn, chọn gi
 
 ## 12. Hồ sơ bàn giao
 
-| Thành phần | Tình trạng |
+| Thành phần | Vị trí truy cập |
 | --- | --- |
-| Source HTML/CSS/JS, avatar, favicon và phông nội bộ | Có trong ZIP v12 |
-| `README.md` theo 12 mục | Tài liệu này; đặt vào thư mục gốc chứa `index.html`, thay README cũ khi đóng gói |
-| Cấu hình mẫu | Có `config.example.js`; chưa có `.env.example` hoặc backend đọc biến môi trường |
-| Bảng 06 ca kiểm thử | Có trên giao diện, mục 11 và test hàm trong `tests/`; TC-02 và TC-05 đã sửa và kiểm tra lại |
-| Demo online | Đã có URL GitHub Pages ở mục 1; đội cần tải bản v12 lên và kiểm tra lại |
-| Video ≤ 02 phút | Đội bổ sung URL/tệp; thể hiện ít nhất 05 chức năng theo mẫu |
-| Minh chứng dùng AI | Đội bổ sung PDF/ảnh hội thoại thật; chưa có tệp riêng trong ZIP |
-| Minh chứng gọi AI thật | Đội bổ sung lần chạy với khóa thật và tên mô hình; che khóa trong ảnh/video |
-| Kiến trúc bảo vệ khóa theo mẫu | Chưa có proxy/backend; cần xử lý nếu là yêu cầu bắt buộc khi nộp |
+| Website demo | [Tengi SmartHome trên GitHub Pages](https://i1u29-gif.github.io/TENGI_VIBE_CHALLENGE/) |
+| Source ZIP | [Thư mục tải source](https://drive.google.com/drive/folders/1z9cXWIzwcMSHdbTJykwhTH-cEjE8lYb1?usp=sharing) — chọn `DOI_TENGI_De4_VibeCoding2026.zip` |
+| README và tệp minh chứng | [Bộ hồ sơ Google Drive](https://drive.google.com/drive/folders/1z9cXWIzwcMSHdbTJykwhTH-cEjE8lYb1?usp=sharing) |
+| Video demo/minh chứng | [Xem trên YouTube](https://youtu.be/6y65p4fzllg) |
+| Repository mã nguồn | [TENGI_VIBE_CHALLENGE](https://github.com/i1u29-gif/TENGI_VIBE_CHALLENGE) |
+| Bảng 06 ca kiểm thử | [Mục 11.2 trên GitHub](https://github.com/i1u29-gif/TENGI_VIBE_CHALLENGE/blob/main/README.md#112-sáu-ca-chính--bảng-a); có tại mục 11.2 của tài liệu này và trên giao diện ứng dụng |
+| Kiểm tra hàm đi kèm | `tests/regression.test.cjs` trong source |
+| Cấu hình mẫu | `config.example.js`, không chứa khóa API thật |
 
-### Thao tác hoàn thiện trước khi nộp
+### Cách sử dụng hồ sơ
 
-1. Chạy lại TC-02, TC-05 và menu xử lý/xóa trên thiết bị demo. Chỉ dùng dữ liệu mẫu khi chạy TC-06.
-2. Đối chiếu yêu cầu bảo mật khóa API với quy định chính thức; triển khai proxy/serverless nếu bắt buộc. Không ghi là đã có `.env`/backend khi chưa thực hiện.
-3. Kiểm tra API thật, quay video ngắn với dữ liệu mẫu và che mọi khóa/token.
-4. Bổ sung minh chứng AI, URL demo, URL source và video vào mục 1; cập nhật kết quả kiểm thử sau khi thay đổi mã nguồn.
-5. Gói v12 đã kèm README này. Giải nén, tải các tệp trong thư mục gốc lên repository GitHub Pages hiện tại; giữ nguyên `assets/`, `src/`, `styles/`. Đặt `index.html` tại vị trí GitHub Pages đang phục vụ. Không kèm khóa, mật khẩu hoặc dữ liệu khách hàng thật.
-6. Nộp đúng thời hạn theo thông báo chính thức và tuân thủ quy định về thay đổi bài sau hạn nộp.
+1. Xem video minh chứng hoặc mở website demo để xem sản phẩm.
+2. Mở thư mục Drive, tải source ZIP và các minh chứng đội đã cung cấp.
+3. Giải nén source; đặt `README.md` này tại thư mục gốc cùng `index.html`, thay bản cũ nếu cần.
+4. Chạy theo mục 5; xem bảng kiểm thử ở mục 11 hoặc liên kết GitHub tương ứng.
+5. Dùng dữ liệu mẫu để thử tính năng; TC-06 chủ động làm hỏng vùng lưu dữ liệu rồi phục hồi về danh sách rỗng.
 
-README này mô tả trung thực source v12 đã đối chiếu; việc bổ sung tài liệu không tự sửa các giới hạn chức năng hoặc bảo mật của mã nguồn.
+### Kiểm tra cuối trước khi nộp
 
-**Trạng thái cập nhật website:** việc tạo ZIP này chưa thay đổi repository hoặc bản GitHub Pages đang chạy. Đội cần tự đưa source v12 lên repository để áp dụng thay đổi online.
+- Kiểm tra link Drive, video và GitHub bằng cửa sổ chưa đăng nhập để người chấm có thể truy cập.
+- Nếu quy định yêu cầu video tối đa 02 phút, kiểm tra lại thời lượng video đã đăng; liên kết trong README không tự xác nhận điều kiện thời lượng.
+- Đồng bộ README mới vào repository và gói ZIP trên Drive để các bản hồ sơ thống nhất. Giữ tiêu đề `11.2. Sáu ca chính — Bảng A` để bảo toàn liên kết đến bảng kiểm thử.
+- Không kèm khóa API/token hoặc dữ liệu khách hàng thật. Phân biệt kết quả test Local/mô phỏng với minh chứng chạy API thật.
+- Tuân thủ thời hạn và quy định thay đổi bài nộp của Ban tổ chức.
+
+Tài liệu phản ánh mã nguồn trong ZIP đã cung cấp và các liên kết hồ sơ do đội xác nhận. Việc chỉnh README không thay đổi chức năng, quyền truy cập hoặc tự cập nhật nội dung trên GitHub/Drive.

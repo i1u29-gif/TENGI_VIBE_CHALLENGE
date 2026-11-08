@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png?v=9" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=9" />
   <link rel="stylesheet" href="styles/utilities.css" />
-  <link rel="stylesheet" href="styles/main.css?v=11.0" />
+  <link rel="stylesheet" href="styles/main.css?v=12.0" />
 </head>
 <body class="bg-[#f5f5f5] text-neutral-900 min-h-screen flex flex-col selection:bg-neutral-100 selection:text-neutral-900">
 
@@ -264,9 +264,9 @@
               <tr class="hover:bg-neutral-50/70">
                 <td data-label="Mã" class="py-3.5 px-4 font-mono-code font-semibold text-neutral-800">TC-02</td>
                 <td data-label="Nhóm" class="py-3.5 px-4"><span class="bg-neutral-50 text-neutral-800 border border-neutral-200 px-2 py-0.5 rounded text-xs font-medium">Bình thường 2</span></td>
-                <td data-label="Dữ liệu đầu vào / Kịch bản" class="py-3.5 px-4 text-neutral-700">Đặt lịch hợp lệ: <em>"Phạm Nga Thế"</em>, SĐT <em>"0912345678"</em>, hôm nay lúc <em>15:00</em>.</td>
+                <td data-label="Dữ liệu đầu vào / Kịch bản" class="py-3.5 px-4 text-neutral-700">Đặt lịch hợp lệ: <em>"Phạm Nga Thế"</em>, SĐT <em>"0912345678"</em>, tự chọn khung giờ tương lai còn trống (08:00–20:00).</td>
                 <td data-label="Kỳ vọng" class="py-3.5 px-4 text-neutral-600">Lưu vào <code>localStorage</code>, hiện thẻ xác nhận và đồng bộ sang trang Quản lý.</td>
-                <td data-label="Kết quả thực tế" class="py-3.5 px-4 text-neutral-700 font-medium">ĐẠT: Lưu mã phiếu hẹn, tạo link Google Calendar & Zalo.</td>
+                <td id="testResult2" data-label="Kết quả thực tế" role="status" aria-live="polite" class="py-3.5 px-4 text-neutral-700">Chưa chạy — bấm Chạy thử để ghi nhận kết quả thực tế.</td>
                 <td data-label="Thực thi" class="py-3.5 px-4 text-right">
                   <button onclick="window.runTestCase(2)" class="bg-neutral-900 hover:bg-neutral-800 text-white px-3 py-1.5 rounded-md text-xs font-medium"><span data-icon="play"></span>Chạy thử</button>
                 </td>
@@ -296,7 +296,7 @@
                 <td data-label="Nhóm" class="py-3.5 px-4"><span class="bg-neutral-100 text-neutral-700 border border-neutral-300 px-2 py-0.5 rounded text-xs font-medium">Ca biên 1</span></td>
                 <td data-label="Dữ liệu đầu vào / Kịch bản" class="py-3.5 px-4 text-neutral-700">Hỏi câu ngoài danh mục FAQ: <em>"Thiết kế BMS công nghiệp cho tòa nhà 25 tầng..."</em></td>
                 <td data-label="Kỳ vọng" class="py-3.5 px-4 text-neutral-600">Không trả lời bịa đặt, đặt <code>can_answer=false</code> và mời đặt lịch hẹn.</td>
-                <td data-label="Kết quả thực tế" class="py-3.5 px-4 text-neutral-700 font-medium">ĐẠT: Đề xuất đặt lịch kèm nút mở Form điền sẵn câu hỏi.</td>
+                <td id="testResult5" data-label="Kết quả thực tế" role="status" aria-live="polite" class="py-3.5 px-4 text-neutral-700">Chưa chạy — bấm Chạy thử để ghi nhận kết quả thực tế.</td>
                 <td data-label="Thực thi" class="py-3.5 px-4 text-right">
                   <button onclick="window.runTestCase(5)" class="bg-white hover:bg-neutral-100 text-neutral-800 border border-neutral-300 px-3 py-1.5 rounded-md text-xs font-medium"><span data-icon="play"></span>Chạy thử</button>
                 </td>
@@ -395,14 +395,14 @@
   </div>
 
   <!-- SCRIPTS -->
-  <script src="src/icons.js?v=11.0"></script>
-  <script src="config.example.js?v=11.0"></script>
-  <script src="src/data/faqData.js?v=11.0"></script>
-  <script src="src/utils/validator.js?v=11.0"></script>
-  <script src="src/utils/wowHelper.js?v=11.0"></script>
-  <script src="src/services/storageService.js?v=11.0"></script>
-  <script src="src/services/aiService.js?v=11.0"></script>
-  <script src="src/app.js?v=11.0"></script>
-  <script src="src/utils/secureSharing.js?v=11.0"></script>
+  <script src="src/icons.js?v=12.0"></script>
+  <script src="config.example.js?v=12.0"></script>
+  <script src="src/data/faqData.js?v=12.0"></script>
+  <script src="src/utils/validator.js?v=12.0"></script>
+  <script src="src/utils/wowHelper.js?v=12.0"></script>
+  <script src="src/services/storageService.js?v=12.0"></script>
+  <script src="src/services/aiService.js?v=12.0"></script>
+  <script src="src/app.js?v=12.0"></script>
+  <script src="src/utils/secureSharing.js?v=12.0"></script>
 </body>
 </html>

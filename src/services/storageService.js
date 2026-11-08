@@ -49,6 +49,15 @@ window.TengiApp.StorageService = {
     return { ...saveResult, record: newRecord, total: list.length };
   },
 
+  markBookingProcessed(id) {
+    const list = this.getBookings();
+    const record = list.find((b) => b.id === id);
+    if (!record) return { success: false, error: "Lịch hẹn không còn tồn tại." };
+    record.status = "processed";
+    record.processedAt = new Date().toISOString();
+    return this.saveBookings(list);
+  },
+
   deleteBookingById(id) {
     const list = this.getBookings();
     const filtered = list.filter((item) => item.id !== id);

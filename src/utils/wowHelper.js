@@ -107,6 +107,22 @@ window.TengiApp.WowHelper = {
     };
   },
 
+  getNextAvailableBookingSlot(phone, existing = [], from = new Date()) {
+    const candidate = new Date(from.getTime() + 30 * 60000);
+    candidate.setSeconds(0, 0);
+    candidate.setMinutes(Math.ceil(candidate.getMinutes() / 30) * 30);
+    const pad = (n) => String(n).padStart(2, "0");
+    for (let step = 0; step < 90 * 48; step++) {
+      if (candidate.getHours() < 8) candidate.setHours(8, 0, 0, 0);
+      if (candidate.getHours() >= 20) { candidate.setDate(candidate.getDate() + 1); candidate.setHours(8, 0, 0, 0); }
+      const date = candidate.getFullYear() + "-" + pad(candidate.getMonth() + 1) + "-" + pad(candidate.getDate());
+      const time = pad(candidate.getHours()) + ":" + pad(candidate.getMinutes());
+      if (!existing.some((b) => b.phone === phone && b.date === date && b.time === time)) return { date, time };
+      candidate.setMinutes(candidate.getMinutes() + 30);
+    }
+    throw new Error("Chưa tìm được khung giờ thử trống. Vui lòng kiểm tra danh sách lịch hẹn.");
+  },
+
   // All outbound data is revalidated, including records restored from storage.
   exportBooking(raw) {
     if (!raw || !/^[A-Za-z0-9_-]{1,80}$/.test(raw.id || "")) throw new Error("Mã lịch hẹn không hợp lệ.");

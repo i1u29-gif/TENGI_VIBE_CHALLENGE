@@ -360,6 +360,11 @@ Khách hỏi: "${userQuestion}"`;
       };
     }
 
+    // Guard before both the live API and fallback: do not substitute a package quote for custom work.
+    if (!this.classifyFaqQuestion(userQuestion, faqList)) {
+      return { ...this.outsideFaqResponse(userQuestion, faqList), source: "LOCAL_NLP_ENGINE", notice: null };
+    }
+
     // 3. Gọi Gemini API thật
     if (apiKey && apiKey.length > 10) {
       try {
@@ -439,39 +444,58 @@ Khách hỏi: "${userQuestion}"`;
     };
   },
 
+  normalizeQuestion(value) {
+    return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d").replace(/Đ/g, "D").toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ").trim();
+  },
+
+  classifyFaqQuestion(userText, faqList) {
+    const q = this.normalizeQuestion(userText);
+    const exact = faqList.find((item) => this.normalizeQuestion(item.question) === q);
+    if (exact) return exact;
+    // Requests needing knowledge or a quotation beyond the supplied FAQ require a human.
+    const specialized = /\b(bms|scada|plc|cong nghiep|nha may|nha xuong|benh vien|khach san|trung tam thuong mai|thiet ke rieng|thiet ke chi tiet|lap trinh|so do dau day|tinh toan cong suat|du toan chi tiet|bao gia rieng|bao gia chi tiet)\b/;
+    if (specialized.test(q) || /\btoa nha\s+\d+\s+tang\b/.test(q)) return null;
+    // Match topic phrases rather than arbitrary single-word substring overlap.
+    const rules = [
+      ["FAQ-01", /\b(gio lam viec|mo cua|dia chi|showroom|o dau|van phong|chi nhanh|may gio)\b/],
+      ["FAQ-03", /\b(bao hanh|doi tra|sua chua|bao tri|1 doi 1)\b/],
+      ["FAQ-04", /\b(thoi gian thi cong|thoi gian lap dat|thi cong|lap mat may ngay|lap dat mat bao lau|lap dat bao lau|tien do)\b/],
+      ["FAQ-05", /\b(khao sat|tu van tai nha|demo tai nha|ho tro tan noi)\b/],
+      ["FAQ-06", /\b(mat mang|mat wifi|mat internet|wi fi|wifi|internet|offline|mat ket noi|rot mang|dut cap)\b/],
+      ["FAQ-07", /\b(tra gop|thanh toan|chuyen khoan|the tin dung|lai suat|tra truoc|quet the)\b/],
+      ["FAQ-08", /\b(ung dung|app|ios|android|giong noi|google home|siri|apple homekit|alexa|dieu khien qua dien thoai)\b/],
+      ["FAQ-09", /\b(nha cu|dang o|moi xay|duc tuong|thay cong tac|cai tao|di lai day)\b/],
+      ["FAQ-10", /\b(camera|khoa van tay|chong trom|an ninh|canh bao|bao dong|dot nhap|coi hu)\b/]
+    ];
+    for (const [id, pattern] of rules) if (pattern.test(q)) return faqList.find((f) => f.id === id) || null;
+    const pricing = /\b(gia|chi phi|bao nhieu tien|goi co ban)\b/.test(q);
+    const productContext = /\b(goi co ban|goi lap dat|nha thong minh|smarthome|can ho|lap dat)\b/.test(q);
+    const shortPricing = /^(bao gia|gia bao nhieu|chi phi bao nhieu|gia goi co ban|goi co ban gia bao nhieu)( a| nhe| vay)?$/.test(q);
+    if (pricing && (productContext || shortPricing)) return faqList.find((f) => f.id === "FAQ-02") || null;
+    return null;
+  },
+
+  outsideFaqResponse(userText, faqList) {
+    return {
+      ...window.TengiApp.Validator.validateAndNormalizeAIOutput({
+        answer: "Nội dung bạn hỏi cần tư vấn riêng hoặc chưa có trong bộ thông tin FAQ của Tengi. Mình chưa có đủ dữ liệu để đưa ra câu trả lời hay báo giá chính xác. Bạn có thể **đặt lịch tư vấn với chuyên viên kỹ thuật** để được hỗ trợ theo nhu cầu thực tế.",
+        can_answer: false,
+        suggested_questions: [faqList[1].question, faqList[4].question, faqList[3].question]
+      }, faqList),
+      matched_faq_id: null
+    };
+  },
+
   localSmartFallback(userText, faqList) {
     const conv = this.checkConversationalIntent(userText, faqList);
     if (conv.isConversational && conv.response) {
       return conv.response;
     }
 
-    const normalized = String(userText || "").toLowerCase().trim();
-    let bestMatch = null;
-    let maxScore = 0;
-
-    for (const item of faqList) {
-      let score = 0;
-      if (normalized === item.question.toLowerCase()) {
-        score += 120;
-      }
-      for (const kw of item.keywords) {
-        if (normalized.includes(kw.toLowerCase())) {
-          score += 22;
-        }
-      }
-      const words = item.question.toLowerCase().replace(/[?,.-]/g, "").split(/\s+/);
-      for (const w of words) {
-        if (w.length > 3 && normalized.includes(w)) {
-          score += 4;
-        }
-      }
-      if (score > maxScore) {
-        maxScore = score;
-        bestMatch = item;
-      }
-    }
-
-    if (bestMatch && maxScore >= 18) {
+    const bestMatch = this.classifyFaqQuestion(userText, faqList);
+    if (bestMatch) {
       const intros = [
         "Dạ chào bạn, về thắc mắc này Tengi SmartHome xin giải đáp chi tiết như sau: ",
         "Cảm ơn bạn đã quan tâm! Mình xin gửi thông tin chính xác tới bạn nhé: ",
@@ -493,14 +517,6 @@ Khách hỏi: "${userQuestion}"`;
       );
     }
 
-    return window.TengiApp.Validator.validateAndNormalizeAIOutput(
-      {
-        answer: `Dạ câu hỏi "${userText}" của bạn mang tính chuyên sâu hoặc nằm ngoài danh mục câu hỏi nhanh hiện có. Để được khảo sát và báo giá chuẩn xác nhất, bạn hãy **đặt lịch tư vấn trực tiếp với chuyên viên kỹ thuật** của Tengi nhé! Mình đã đính kèm nút mở nhanh Form đặt lịch ngay bên dưới cho bạn ạ.`,
-        can_answer: false,
-        matched_faq_id: null,
-        suggested_questions: [faqList[1].question, faqList[4].question, faqList[3].question]
-      },
-      faqList
-    );
+    return this.outsideFaqResponse(userText, faqList);
   }
 };

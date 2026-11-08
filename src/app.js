@@ -211,6 +211,7 @@ window.TengiApp = window.TengiApp || {};
     appendBotMessage(aiResponse.answer, aiResponse.can_answer, aiResponse.source, aiResponse.notice);
     Wow.playNotificationSound("bot");
     renderSuggestedQuestions(aiResponse.suggested_questions);
+    return aiResponse;
   };
 
   function appendUserMessage(text) {
@@ -425,7 +426,7 @@ window.TengiApp = window.TengiApp || {};
     const statCount = document.getElementById("statTotalBookings");
 
     if (badge) badge.textContent = bookings.length;
-    if (statCount) statCount.textContent = bookings.length;
+    if (statCount) statCount.textContent = bookings.filter((b) => b.status !== "processed").length;
     if (!tbody) return;
 
     if (bookings.length === 0) {
@@ -445,7 +446,7 @@ window.TengiApp = window.TengiApp || {};
         return `
       <tr class="hover:bg-neutral-50/80 transition">
         <td data-label="Mã phiếu" class="py-3.5 px-4 font-mono-code text-xs text-neutral-700 font-semibold">${Validator.escapeHtml(b.id)}</td>
-        <td data-label="Khách hàng" class="py-3.5 px-4 font-medium text-neutral-900">${Validator.escapeHtml(b.name)}</td>
+        <td data-label="Khách hàng" class="py-3.5 px-4 font-medium text-neutral-900">${Validator.escapeHtml(b.name)}<span class="booking-status" data-state="${b.status === "processed" ? "processed" : "pending"}">${b.status === "processed" ? "Đã xử lý" : "Chờ xử lý"}</span></td>
         <td data-label="Số điện thoại" class="py-3.5 px-4 text-neutral-600 font-mono-code text-xs">${Validator.escapeHtml(b.phone)}</td>
         <td data-label="Thời gian hẹn" class="py-3.5 px-4">
           <span class="bg-neutral-100 text-neutral-700 border border-neutral-200 px-2.5 py-1 rounded-md text-xs font-mono-code">
@@ -462,16 +463,33 @@ window.TengiApp = window.TengiApp || {};
             class="bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-200 px-2.5 py-1 rounded-md text-xs font-medium transition">
             Zalo
           </button>
-          <button type="button" data-booking-action="delete" data-booking-id="${Validator.escapeHtml(b.id)}"
-            class="bg-neutral-50 hover:bg-neutral-100 text-neutral-700 border border-neutral-200 px-2.5 py-1 rounded-md text-xs font-medium transition">
-            Đã xử lý / Xóa
-          </button>
+          <select data-booking-menu data-booking-id="${Validator.escapeHtml(b.id)}" aria-label="Chọn thao tác cho lịch hẹn ${Validator.escapeHtml(b.id)}" class="booking-action-menu">
+            <option value="">Chọn thao tác…</option>
+            <option value="process" ${b.status === "processed" ? "disabled" : ""}>Đánh dấu đã xử lý</option>
+            <option value="delete">Xóa lịch hẹn</option>
+          </select>
         </td>
       </tr>
     `;
       })
       .join("");
   };
+
+  window.processBooking = function (id) {
+    const result = Storage.markBookingProcessed(id);
+    if (!result.success) { showToast(result.error); return; }
+    renderAdminBookings();
+    showToast("Đã đánh dấu lịch hẹn " + id + " là đã xử lý. Bản ghi được giữ lại.");
+  };
+
+  document.addEventListener("change", (event) => {
+    const menu = event.target.closest("select[data-booking-menu]");
+    if (!menu) return;
+    const action = menu.value;
+    menu.value = "";
+    if (action === "process") window.processBooking(menu.dataset.bookingId);
+    else if (action === "delete") window.deleteBooking(menu.dataset.bookingId);
+  });
 
   window.deleteBooking = function (id) {
     if (!window.confirm("Xóa lịch hẹn trên trình duyệt này? Bản đã chia sẻ hoặc tải xuống sẽ không bị thu hồi.")) return;
@@ -517,39 +535,41 @@ window.TengiApp = window.TengiApp || {};
     if (tabName === "admin") renderAdminBookings();
   };
 
-  window.runTestCase = function (caseNumber) {
+  const runningCases = new Set();
+  function setCaseResult(number, message, state) {
+    const cell = document.getElementById("testResult" + number);
+    if (cell) { cell.textContent = message; cell.dataset.state = state; }
+  }
+  window.runTestCase = async function (caseNumber) {
     const smart = Wow.getSmartDefaultDateTime();
     if (caseNumber === 1) {
       window.switchTab("customer");
       window.askQuestion("Giá gói lắp đặt nhà thông minh cơ bản là bao nhiêu?");
       showToast("Đang chạy TC-01: Truy vấn câu hỏi trong bộ FAQ.");
     } else if (caseNumber === 2) {
-      const res = Validator.validateBookingForm(
-        {
-          name: "Phạm Nga Thế",
-          phone: "0912345678",
-          date: smart.defaultDate,
-          time: "15:00",
-          note: "Khảo sát lắp gói cơ bản chung cư Gò Vấp"
-        },
-        Storage.getBookings()
-      );
-      if (res.valid) {
+      if (runningCases.has(2)) return;
+      runningCases.add(2);
+      setCaseResult(2, "Đang chọn và kiểm tra giờ hẹn…", "pending");
+      try {
+        const existing = Storage.getBookings();
+        const slot = Wow.getNextAvailableBookingSlot("0912345678", existing);
+        const res = Validator.validateBookingForm({ name: "Phạm Nga Thế", phone: "0912345678",
+          date: slot.date, time: slot.time, note: "Lịch hẹn mẫu TC-02 — khảo sát gói cơ bản" }, existing);
+        if (!res.valid) throw new Error(res.error);
         const added = Storage.addBooking(res.sanitized);
-        Wow.playNotificationSound("booking_success");
+        if (!added.success) throw new Error(added.error || "Không lưu được lịch hẹn.");
+        const persisted = Storage.getBookings().find((b) => b.id === added.record.id);
+        if (!persisted) throw new Error("Chưa xác nhận được bản ghi trong bộ nhớ.");
+        renderAdminBookings();
         window.switchTab("customer");
-        appendBotMessage(
-          `Đã tạo lịch hẹn mẫu từ Ca kiểm thử TC-02:`,
-          true,
-          "BOOKING_SYSTEM",
-          null,
-          added.record
-        );
-      } else {
-        window.switchTab("admin");
-      }
-      renderAdminBookings();
-      showToast("TC-02 hoàn tất: Đã tạo lịch hẹn hợp lệ và hiển thị thẻ xác nhận.");
+        appendBotMessage("Đã tạo lịch hẹn mẫu từ ca kiểm thử TC-02:", true, "BOOKING_SYSTEM", null, added.record);
+        Wow.playNotificationSound("booking_success");
+        setCaseResult(2, "ĐẠT: Đã lưu " + persisted.id + " vào " + persisted.time + " ngày " + persisted.date + "; hiện thẻ xác nhận và danh sách quản lý.", "pass");
+        showToast("TC-02: Đã lưu lịch tương lai lúc " + persisted.time + " ngày " + persisted.date + ".");
+      } catch (error) {
+        setCaseResult(2, "CHƯA ĐẠT: " + error.message, "fail");
+        showToast("TC-02 chưa tạo được lịch: " + error.message);
+      } finally { runningCases.delete(2); }
     } else if (caseNumber === 3) {
       window.switchTab("customer");
       window.openBookingModal();
@@ -569,9 +589,21 @@ window.TengiApp = window.TengiApp || {};
       document.getElementById("bookingForm").dispatchEvent(new Event("submit", { cancelable: true }));
       showToast("TC-04 hoàn tất: Đã chặn ngày hẹn trong quá khứ (01/01/2020).");
     } else if (caseNumber === 5) {
-      window.switchTab("customer");
-      window.askQuestion("Tôi muốn thiết kế riêng hệ thống BMS công nghiệp cho tòa nhà 25 tầng tại Hà Nội thì báo giá sao?");
-      showToast("TC-05 hoàn tất: Câu hỏi ngoài FAQ -> Chủ động đề xuất đặt lịch.");
+      if (runningCases.has(5)) return;
+      runningCases.add(5);
+      setCaseResult(5, "Đang kiểm tra câu hỏi ngoài phạm vi FAQ…", "pending");
+      try {
+        window.switchTab("customer");
+        const response = await window.askQuestion("Tôi muốn thiết kế riêng hệ thống BMS công nghiệp cho tòa nhà 25 tầng tại Hà Nội thì báo giá sao?");
+        if (!response || response.can_answer !== false || response.suggested_questions?.length !== 3) {
+          throw new Error("Chưa đáp ứng yêu cầu từ chối ngoài FAQ và đủ 03 gợi ý.");
+        }
+        setCaseResult(5, "ĐẠT: can_answer=false, không báo giá gói cơ bản; hiện nút đặt lịch và 03 gợi ý. Bấm đặt lịch để xem ghi chú điền sẵn.", "pass");
+        showToast("TC-05: Nội dung ngoài FAQ đã được chuyển sang đặt lịch tư vấn.");
+      } catch (error) {
+        setCaseResult(5, "CHƯA ĐẠT: " + error.message, "fail");
+        showToast("TC-05 chưa hoàn tất: " + error.message);
+      } finally { runningCases.delete(5); }
     } else if (caseNumber === 6) {
       localStorage.setItem(Storage.STORAGE_KEY, "{corrupted_json_data!!!");
       Storage.getBookings();
